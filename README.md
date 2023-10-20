@@ -1,4 +1,4 @@
-# BR-BALLOONS V1
+# BR-BALLOONS
 
 Thank you for downloading my sciprt!
 To setup the br-balloons, you have to put this codes:
