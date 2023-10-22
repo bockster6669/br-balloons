@@ -1,5 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
+local AmountTaken = 0
+local Timer = 0
 local function LoadAnimDict(dict)
     while (not HasAnimDictLoaded(dict)) do
         RequestAnimDict(dict)
@@ -61,6 +62,8 @@ local function deleteFlaskProp()
 end
 
 local function BalloonEffect()
+    AmountTaken = AmountTaken + 1
+    Timer = 0
     AnimpostfxPlay("DrugsMichaelAliensFightIn", 3.0, 0)
     Wait(2000)
     local Ped = PlayerPedId()
@@ -109,6 +112,27 @@ RegisterNetEvent('br-ballons:client:useBalloonsPacket', function()
         ClearPedTasks(PlayerPedId())
 	end)
 end)
+
+CreateThread(function()
+	while true do
+			Wait(1000)
+			Timer = Timer + 1
+		end
+		
+	end)
+
+
+CreateThread(function()
+	while true do
+			Wait(1)
+			if Timer <= Config.OverdoseInterval then
+				if AmountTaken >= Config.OverdoseAmount then
+					    SetEntityHealth(PlayerPedId(), 0)
+				end
+			end
+		end
+		
+	end)
 
 
 RegisterNetEvent('br-ballons:client:useBalloon', function()
